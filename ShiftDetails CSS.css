@@ -1,0 +1,50 @@
+/* =========  חלק: CSS  =========
+   שם קובץ: /CSS/style_details.css
+   תפקיד: עיצוב מסך פרטי משמרת + רספונסיביות
+================================ */
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial;background:#f7f7fb;color:#222;}
+
+header{background:#fff;border-bottom:1px solid #eee;padding:18px;}
+nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.menu-links{display:flex;gap:10px;flex-wrap:wrap;}
+.menu-links a{text-decoration:none;color:#333;padding:10px;border-radius:8px;}
+.menu-links a:hover{background:#f3f3f3;}
+.btn-primary{background:orange;color:#fff;padding:10px 18px;text-decoration:none;border-radius:8px;border:none;display:inline-block;}
+
+.page{max-width:900px;margin:18px auto;padding:0 14px;}
+.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.back{text-decoration:none;color:#0b57d0;}
+.tag{background:#d93025;color:#fff;padding:6px 10px;border-radius:999px;font-size:12px;}
+
+.card{background:#fff;border:1px solid #eee;border-radius:14px;padding:16px;margin-bottom:12px;}
+.notice{background:#fff7e6;border:1px solid #ffe0a3;padding:12px;border-radius:12px;}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px;}
+.item{background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px;}
+.label{display:block;color:#666;font-size:12px;margin-bottom:6px;}
+.value{font-weight:bold;color:#222;}
+
+.actions{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;}
+.btn-action{border:none;border-radius:10px;padding:10px 12px;cursor:pointer;color:#fff;}
+.btn-green{background:#188038;}
+.btn-gray{background:#888;cursor:default;}
+.small{color:#555;font-size:13px;}
+
+.accordion{margin-top:10px;}
+.acc-item{border:1px solid #eee;border-radius:12px;margin-top:10px;overflow:hidden;}
+.acc-head{width:100%;text-align:right;padding:12px;background:#f5f5f5;border:none;cursor:pointer;font-weight:bold;}
+.acc-body{display:none;padding:12px;background:#fff;}
+
+.toast{position:fixed;bottom:18px;right:18px;background:#111;color:#fff;padding:10px 12px;border-radius:12px;display:none;}
+
+footer{background:#333;color:#fff;padding:18px;text-align:center;}
+footer a{color:#ccc;margin:0 8px;text-decoration:none;}
+footer a:hover{color:#fff;}
+
+@media (max-width:650px){
+  nav{justify-content:center;}
+  .menu-links{justify-content:center;}
+  .grid{grid-template-columns:1fr;}
+}

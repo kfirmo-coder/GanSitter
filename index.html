@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GanSitter - דף הבית</title>
+  <link rel="stylesheet" href="HomePage CSS.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <h1>GanSitter</h1>
+
+    <div class="menu-links">
+      <a href="index.html" class="active">דף הבית</a>
+      <a href="ShiftSearch.html">חיפוש משמרות</a>
+      <a href="#" class="not-implemented" title="טרם מומש">איך זה עובד</a>
+      <a href="dashboard.html">אזור אישי</a>
+    </div>
+
+    <a href="post_shift.html" class="btn-primary">פרסם צורך</a>
+  </nav>
+</header>
+
+<main>
+  <section class="home-page">
+    <h1>צריכים ממלאת מקום ליום אחד? מוצאים מהר ובבטחה.</h1>
+    <p>גנים מפרסמים צורך חד־פעמי, גננות מגישות מועמדות, והכל מנוהל בצורה מסודרת.</p>
+
+    <div class="hero-anim" aria-hidden="true">
+      <span class="bubble b1"></span>
+      <span class="bubble b2"></span>
+      <span class="bubble b3"></span>
+      <span class="bubble b4"></span>
+    </div>
+
+    <div class="cards-container">
+      <article class="card">
+        <h2>🏫 אני גן ילדים</h2>
+        <p>מפרסמים צורך חד־פעמי.</p>
+        <a href="post_shift.html" class="btn-action blue">פרסום צורך למשמרת</a>
+      </article>
+
+      <article class="card">
+        <h2>👩‍🏫 אני מחפשת עבודה</h2>
+        <p>מסננים ומגישים מועמדות בלחיצה.</p>
+        <a href="ShiftSearch.html" class="btn-action green">חיפוש משמרות</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>איך זה עובד?</h2>
+    <div class="steps-container">
+      <div class="step-box">
+        <h3>1. פרסום</h3>
+        <p>הגן מפרסם משמרת בטופס מסודר.</p>
+      </div>
+      <div class="step-box">
+        <h3>2. התאמה</h3>
+       
+      </div>
+      <div class="step-box">
+        <h3>3. ניהול</h3>
+        <p>באזור אישי אפשר לראות פרסומים ולנהל סטטוסים.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="open-shifts">
+    <h2>דוגמה למשמרות פתוחות</h2>
+
+    <form class="filter-bar">
+      <label>עיר:</label>
+      <select>
+        <option>תל אביב</option>
+        <option>רמת גן</option>
+        <option>גבעתיים</option>
+      </select>
+
+      <label>תאריך:</label>
+      <input type="date">
+
+      <label>טווח שכר (₪):</label>
+      <input type="range" min="30" max="100">
+
+      <input type="button" value="חפש" class="btn-primary" style="cursor:pointer;" title="דוגמה בלבד">
+    </form>
+
+    <div class="shifts-grid">
+      <div class="shift-card">
+        <span class="badge">דחוף</span>
+        <h3>גן פרטי בת״א</h3>
+        <p>📍 תל אביב</p>
+        <p>📅 מחר, 07:30 - 16:00</p>
+        <p>💰 50₪ / שעה</p>
+        <a href="ShiftSearch.html" class="btn-action green">לכל המשמרות</a>
+      </div>
+
+      <div class="shift-card">
+        <h3>גן השלום</h3>
+        <p>📍 רמת גן</p>
+        <p>📅 היום, 14:00 - 17:00</p>
+        <p>💰 45₪ / שעה</p>
+        <a href="ShiftSearch.html" class="btn-action green">לכל המשמרות</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>
+    <a href="#" class="not-implemented" title="טרם מומש">תנאי שימוש</a> |
+    <a href="#" class="not-implemented" title="טרם מומש">מדיניות פרטיות</a> |
+    <a href="#" class="not-implemented" title="טרם מומש">צור קשר</a>
+  </p>
+</footer>
+
+<script>
+  // הודעה לתפריטים/לינקים שלא מומשו (לפי ההנחיות)
+  document.addEventListener("click", function(e){
+    if (e.target.classList.contains("not-implemented")) {
+      e.preventDefault();
+      alert("טרם מומש");
+    }
+  });
+</script>
+
+</body>
+</html>

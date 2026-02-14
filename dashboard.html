@@ -1,0 +1,76 @@
+<!-- ========= dashboard.html =========
+     תפקיד: מסך "אזור אישי" (HTML בלבד)
+     מקור נתונים: dashboard_api.php (PHP בלבד)
+     תלות: style_dashboard.css, dashboard.js, jQuery
+===================================== -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GanSitter - אזור אישי</title>
+  <link rel="stylesheet" href="style_dashboard.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <h1>GanSitter</h1>
+
+    <div class="menu-links">
+      <a href="index.html">דף הבית</a>
+      <a href="ShiftSearch.html">חיפוש משמרות</a>
+      <a href="#" class="not-implemented" title="טרם מומש">איך זה עובד</a>
+      <a href="dashboard.html" class="active">אזור אישי</a>
+    </div>
+
+    <a href="post_shift.html" class="btn-primary">פרסם צורך</a>
+  </nav>
+</header>
+
+<main class="page">
+
+  <div id="savedMsg" class="msg success" style="display:none;">נשמר בהצלחה ✅</div>
+
+  <div class="layout">
+    <section class="card">
+      <h2>המשמרות שפרסמתי</h2>
+      
+
+      <div id="emptyState" class="msg info" style="display:none;">
+        עדיין אין פרסומים. אפשר לפרסם משמרת חדשה.
+      </div>
+
+      <div id="posts" class="posts"></div>
+    </section>
+
+    <aside class="side">
+      <section class="card">
+        <h3>המועמדויות שלי</h3>
+        <div id="myApplications" class="apps"></div>
+    
+      </section>
+    </aside>
+  </div>
+
+  <div id="toast" class="toast">עודכן ✅</div>
+</main>
+
+<footer>
+  <p>
+    <a href="#" class="not-implemented" title="טרם מומש">תנאי שימוש</a> |
+    <a href="#" class="not-implemented" title="טרם מומש">מדיניות פרטיות</a> |
+    <a href="#" class="not-implemented" title="טרם מומש">צור קשר</a>
+  </p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="dashboard.js"></script>
+<script>
+  $(document).on("click", ".not-implemented", function(e){
+    e.preventDefault();
+    alert("טרם מומש");
+  });
+</script>
+</body>
+</html>
