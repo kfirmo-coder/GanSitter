@@ -1,7 +1,3 @@
-<!-- =========  חלק: SCREEN 3  =========
-     שם קובץ: shift_details.html
-     תפקיד: פרטי משמרת + מועמדות + Accordion (jQuery)
-====================================== -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -19,8 +15,7 @@
     <div class="menu-links">
       <a href="index.html">דף הבית</a>
       <a href="ShiftSearch.html">חיפוש משמרות</a>
-      <a href="#" class="not-implemented" title="טרם מומש">איך זה עובד</a>
-      <a href="dashboard.html">אזור אישי</a>
+<a href="dashboard.html">אזור אישי</a>
     </div>
 
     <a href="post_shift.html" class="btn-primary">פרסם צורך</a>
@@ -30,57 +25,75 @@
 <main class="page">
   <div class="topline">
     <a class="back" href="ShiftSearch.html">← חזרה לחיפוש</a>
-    <div class="tag" id="urgentTag" style="display:none;">דחוף</div>
+    <span id="urgentTag" class="tag" style="display:none;">דחוף</span>
   </div>
 
-  <section class="card">
+  <section id="detailsWrap" class="card">
     <h2 id="shiftTitle">פרטי משמרת</h2>
 
-    <div id="noShift" class="notice" style="display:none;">
-      לא נבחרה משמרת. <a href="ShiftSearch.html">חזרה לחיפוש</a>
-    </div>
-
-    <div id="detailsWrap">
-      <div class="grid">
-        <div class="item"><span class="label">עיר</span><span class="value" id="cityVal"></span></div>
-        <div class="item"><span class="label">כתובת</span><span class="value" id="addressVal"></span></div>
-        <div class="item"><span class="label">תאריך</span><span class="value" id="dateVal"></span></div>
-        <div class="item"><span class="label">שעות</span><span class="value" id="timeVal"></span></div>
-        <div class="item"><span class="label">שכר לשעה</span><span class="value" id="wageVal"></span></div>
-        <div class="item"><span class="label">סוג מסגרת</span><span class="value" id="typeVal"></span></div>
-        <div class="item"><span class="label">גילאים</span><span class="value" id="agesVal"></span></div>
-        <div class="item"><span class="label">דרישות</span><span class="value" id="reqVal"></span></div>
+    <div class="grid">
+      <div class="item">
+        <span class="label">עיר</span>
+        <span class="value" id="cityVal"></span>
       </div>
 
-      <div class="actions">
-        <button type="button" id="applyBtn" class="btn-action btn-green">הגש מועמדות</button>
-        <span id="applyStatus" class="small"></span>
+      <div class="item">
+        <span class="label">כתובת</span>
+        <span class="value" id="addressVal"></span>
+      </div>
+
+      <div class="item">
+        <span class="label">תאריך</span>
+        <span class="value" id="dateVal"></span>
+      </div>
+
+      <div class="item">
+        <span class="label">שעות</span>
+        <span class="value" id="timeVal"></span>
+      </div>
+
+      <div class="item">
+        <span class="label">שכר לשעה</span>
+        <span class="value" id="wageVal"></span>
+      </div>
+
+      <div class="item">
+        <span class="label">סוג מסגרת</span>
+        <span class="value" id="typeVal"></span>
+      </div>
+
+      <div class="item">
+        <span class="label">גילאים</span>
+        <span class="value" id="agesVal"></span>
+      </div>
+
+      <div class="item">
+        <span class="label">דרישות</span>
+        <span class="value" id="reqVal"></span>
       </div>
     </div>
-  </section>
 
-  <section class="card">
-    <h3>מידע נוסף</h3>
+    <div class="actions">
+      <button id="applyBtn" type="button" class="btn-action btn-green">הגש מועמדות</button>
+      <span id="applyStatus" class="small"></span>
+    </div>
 
     <div class="accordion">
       <div class="acc-item">
-        <button type="button" class="acc-head">מה צריך להביא?</button>
-        <div class="acc-body">תעודה מזהה, בקבוק מים, ובגדים נוחים.</div>
-      </div>
-
-      <div class="acc-item">
-        <button type="button" class="acc-head">איך מתבצע התשלום?</button>
-        <div class="acc-body">בדרך כלל בסוף היום. אם יש סיכום אחר – זה יופיע בהערות.</div>
-      </div>
-
-      <div class="acc-item">
-        <button type="button" class="acc-head">שאלות נפוצות</button>
-        <div class="acc-body">מגיעים 10 דקות לפני, מציגים תעודה, ועובדים לפי סדר יום.</div>
+        <button type="button" class="acc-head">מידע נוסף</button>
+        <div class="acc-body">
+          <p class="notice">תוכן לדוגמה בלבד. ניתן להרחיב בהמשך.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <div id="toast" class="toast">המועמדות נשלחה בהצלחה ✅</div>
+  <section id="noShift" class="card" style="display:none;">
+    <h3>לא נמצאה משמרת</h3>
+    <p class="notice">חזרו לחיפוש ובחרו משמרת מחדש.</p>
+  </section>
+
+  <div id="toast" class="toast">נשלח ✅</div>
 </main>
 
 <footer>
@@ -92,6 +105,7 @@
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="shifts_data.js"></script>
 <script src="ShiftDetails.js"></script>
 <script>
   $(document).on("click", ".not-implemented", function(e){

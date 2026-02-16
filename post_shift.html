@@ -1,7 +1,3 @@
-<!-- ========= post_shift.html =========
-     תפקיד: מסך טופס פרסום משמרת (HTML בלבד)
-     שולח נתונים ל: process_post_shift.php באמצעות JS (AJAX)
-===================================== -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -29,7 +25,6 @@
     <h2>פרסום צורך למשמרת</h2>
     <p class="sub">ממלאים ושולחים.</p>
 
-    <!-- הודעה אחידה לשרת/JS -->
     <div id="serverMsg" class="msg" style="display:none;"></div>
 
     <form id="postForm" method="post" action="post_shift.php" novalidate>
@@ -86,7 +81,6 @@
           <textarea id="notes" name="notes" rows="4"></textarea>
         </div>
 
-        <!-- דחוף - Toggle מסודר -->
         <div class="field full">
           <div class="urgent-row" id="urgentRow">
             <div class="urgent-text">

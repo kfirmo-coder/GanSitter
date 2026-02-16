@@ -1,21 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
   var form = document.getElementById("postForm");
-  var jsError = document.getElementById("jsError");
+  var serverMsg = document.getElementById("serverMsg");
 
   function showError(msg) {
-    jsError.className = "msg error";
-    jsError.style.display = "block";
-    jsError.innerHTML = msg;
+    if (!serverMsg) return;
+    serverMsg.className = "msg error";
+    serverMsg.style.display = "block";
+    serverMsg.innerHTML = msg;
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function clearError() {
-    jsError.style.display = "none";
-    jsError.innerHTML = "";
-  }
-
-  function isIsraeliPhone(v) {
-    return /^05\d-?\d{7}$/.test(v);
+  function clearMsg() {
+    if (!serverMsg) return;
+    serverMsg.style.display = "none";
+    serverMsg.innerHTML = "";
   }
 
   function todayStr() {
@@ -26,26 +24,36 @@ document.addEventListener("DOMContentLoaded", function () {
     return y + "-" + m + "-" + day;
   }
 
-
   var dateInput = document.getElementById("shift_date");
   if (dateInput) dateInput.min = todayStr();
 
-  form.addEventListener("submit", function (e) {
-    clearError();
+  if (!form) return;
 
+  form.addEventListener("submit", function (e) {
+    clearMsg();
+
+    var k_name = document.getElementById("k_name").value.trim();
+    var city = document.getElementById("city").value.trim();
     var phone = document.getElementById("phone").value.trim();
     var start = document.getElementById("start_time").value;
     var end = document.getElementById("end_time").value;
     var date = document.getElementById("shift_date").value;
     var wage = parseInt(document.getElementById("wage").value, 10);
+    var kids = parseInt(document.getElementById("kids").value, 10);
 
     var errs = [];
 
-    if (!isIsraeliPhone(phone)) errs.push("טלפון לא תקין. לדוגמה: 0501234567");
+    if (k_name === "") errs.push("חובה למלא שם גן");
+    if (city === "") errs.push("חובה לבחור עיר");
+    if (!/^05\d-?\d{7}$/.test(phone)) errs.push("טלפון לא תקין. לדוגמה: 0501234567");
     if (start && end && end <= start) errs.push("שעת סיום חייבת להיות אחרי שעת התחלה");
     if (date && date < todayStr()) errs.push("התאריך לא יכול להיות בעבר");
     if (isNaN(wage) || wage < 30 || wage > 100) errs.push("השכר חייב להיות בין 30 ל-100");
+    if (isNaN(kids) || kids < 1 || kids > 60) errs.push("מספר ילדים לא תקין");
 
-   
+    if (errs.length) {
+      e.preventDefault();
+      showError(errs.join("<br>"));
+    }
   });
 });

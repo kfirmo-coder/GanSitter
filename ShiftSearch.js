@@ -1,24 +1,8 @@
-/* =========  חלק: JS + JQUERY  =========
-   שם קובץ: /JS/shifts.js
-   תפקיד:
-   1) אלמנט מגיב לאירוע (change/click)
-   2) כתיבה לתוך אלמנט (resultCount/status)
-   3) עיצוב דינמי באמצעות מחלקה
-   4) קליטת נתונים מהמשתמש (filters)
-   5) העברת נתונים בין מסכים ב-JS (localStorage -> shift_details.html)
-======================================== */
-
 $(document).ready(function () {
-  var shifts = [
-    { id: 1, title: "גן פרטי בת\"א", city: "תל אביב", area: "צפון הישן", address: "אבן גבירול 120", date: "2026-01-05", start: "07:30", end: "16:00", wage: 50, type: "גן", hours: "מלא", urgent: true, ages: "2-5", requirements: "ניסיון קודם, אהבה לילדים" },
-    { id: 2, title: "גן השלום", city: "רמת גן", area: "מרכז", address: "ביאליק 10", date: "2026-01-03", start: "14:00", end: "17:00", wage: 45, type: "גן", hours: "צהריים", urgent: false, ages: "3-4", requirements: "אחריות וזמינות" },
-    { id: 3, title: "משפחתון קטן", city: "גבעתיים", area: "צפון", address: "כצנלסון 22", date: "2026-01-10", start: "08:00", end: "13:00", wage: 60, type: "משפחתון", hours: "בוקר", urgent: false, ages: "1-3", requirements: "סבלנות וחיוך" },
-    { id: 4, title: "גן אורנים", city: "פתח תקווה", area: "אם המושבות", address: "העצמאות 7", date: "2026-01-04", start: "07:30", end: "13:30", wage: 52, type: "גן", hours: "בוקר", urgent: true, ages: "2-4", requirements: "ניסיון עם גילאי גן" },
-    { id: 5, title: "משפחתון נווה", city: "תל אביב", area: "רמת אביב", address: "ברודצקי 31", date: "2026-01-06", start: "12:00", end: "16:00", wage: 55, type: "משפחתון", hours: "צהריים", urgent: true, ages: "1-2", requirements: "יכולת הרגעה וניהול" },
-    { id: 6, title: "גן השקד", city: "רמת גן", area: "תל גנים", address: "נגבה 55", date: "2026-01-07", start: "07:45", end: "16:15", wage: 48, type: "גן", hours: "מלא", urgent: false, ages: "2-5", requirements: "סדר וארגון" }
-  ];
+  var shifts = Array.isArray(window.SHIFTS) ? window.SHIFTS : [];
 
   function daysFromToday(dateStr) {
+    if (!dateStr) return 9999;
     var parts = dateStr.split("-");
     var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
     var now = new Date();
@@ -32,12 +16,12 @@ $(document).ready(function () {
     for (var i = 0; i < list.length; i++) {
       var s = list[i];
       html += '<article class="shift-card" data-id="' + s.id + '">';
-      html += '<span class="badge' + (s.urgent ? "" : " hidden") + '">דחוף</span>';
+      if (s.urgent) html += '<span class="badge">דחוף</span>';
       html += "<h3>" + s.title + "</h3>";
       html += '<p class="meta">📍 ' + s.city + (s.area ? " (" + s.area + ")" : "") + "</p>";
       html += '<p class="meta">📅 ' + s.date + " | " + s.start + " - " + s.end + "</p>";
       html += '<p class="meta">💰 ' + s.wage + "₪ / שעה</p>";
-      html += '<p class="meta">🏫 ' + s.type + " | 🕒 " + s.hours + "</p>";
+      html += '<p class="meta">🏫 ' + (s.type || "גן") + " | 🕒 " + (s.hours || "") + "</p>";
       html += '<div class="card-actions">';
       html += '<button type="button" class="btn-action btn-green detailsBtn">לפרטים</button>';
       html += '<button type="button" class="btn-action btn-blue applyBtn">הגש מועמדות</button>';
@@ -50,7 +34,7 @@ $(document).ready(function () {
   function getFiltered() {
     var city = $("#city").val();
     var date = $("#date").val();
-    var minWage = parseInt($("#minWage").val());
+    var minWage = parseInt($("#minWage").val(), 10);
     var type = $("#type").val();
     var hours = $("#hours").val();
     var urgentOnly = $("#urgentOnly").is(":checked");
@@ -61,8 +45,8 @@ $(document).ready(function () {
       var s = shifts[i];
       if (city && s.city !== city) continue;
       if (date && s.date !== date) continue;
-      if (type && s.type !== type) continue;
-      if (hours && s.hours !== hours) continue;
+      if (type && (s.type || "גן") !== type) continue;
+      if (hours && (s.hours || "") !== hours) continue;
       if (urgentOnly && !s.urgent) continue;
       if (s.wage < minWage) continue;
       list.push(s);
@@ -130,19 +114,19 @@ $(document).ready(function () {
   });
 
   $(document).on("click", ".detailsBtn", function () {
-    var id = parseInt($(this).closest(".shift-card").attr("data-id"));
+    var id = parseInt($(this).closest(".shift-card").attr("data-id"), 10);
     var chosen = null;
     for (var i = 0; i < shifts.length; i++) {
       if (shifts[i].id === id) chosen = shifts[i];
     }
     if (chosen) {
       localStorage.setItem("selectedShift", JSON.stringify(chosen));
-      window.location.href = "ShiftDetails.html";
+      window.location.href = "ShiftDetails.html?id=" + encodeURIComponent(id);
     }
   });
 
   $(document).on("click", ".applyBtn", function () {
-    var id = parseInt($(this).closest(".shift-card").attr("data-id"));
+    var id = parseInt($(this).closest(".shift-card").attr("data-id"), 10);
     var chosen = null;
     for (var i = 0; i < shifts.length; i++) {
       if (shifts[i].id === id) chosen = shifts[i];

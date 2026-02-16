@@ -1,8 +1,3 @@
-<!-- ========= dashboard.html =========
-     תפקיד: מסך "אזור אישי" (HTML בלבד)
-     מקור נתונים: dashboard_api.php (PHP בלבד)
-     תלות: style_dashboard.css, dashboard.js, jQuery
-===================================== -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -20,8 +15,7 @@
     <div class="menu-links">
       <a href="index.html">דף הבית</a>
       <a href="ShiftSearch.html">חיפוש משמרות</a>
-      <a href="#" class="not-implemented" title="טרם מומש">איך זה עובד</a>
-      <a href="dashboard.html" class="active">אזור אישי</a>
+<a href="dashboard.html" class="active">אזור אישי</a>
     </div>
 
     <a href="post_shift.html" class="btn-primary">פרסם צורך</a>
@@ -29,26 +23,21 @@
 </header>
 
 <main class="page">
-
-  <div id="savedMsg" class="msg success" style="display:none;">נשמר בהצלחה ✅</div>
-
   <div class="layout">
     <section class="card">
       <h2>המשמרות שפרסמתי</h2>
-      
+      <p class="sub">הנתונים כאן מגיעים מקובץ סטטי שמתעדכן בעת פרסום (ללא PHP כאן).</p>
 
-      <div id="emptyState" class="msg info" style="display:none;">
-        עדיין אין פרסומים. אפשר לפרסם משמרת חדשה.
-      </div>
+      <div id="noPostsMsg" class="msg info" style="display:none;">עדיין אין פרסומים. אפשר לפרסם משמרת חדשה.</div>
 
-      <div id="posts" class="posts"></div>
+      <div class="posts" id="myPostsWrap"></div>
     </section>
 
     <aside class="side">
       <section class="card">
         <h3>המועמדויות שלי</h3>
         <div id="myApplications" class="apps"></div>
-    
+        <div class="small">זה מגיע מהדפדפן (localStorage).</div>
       </section>
     </aside>
   </div>
@@ -65,6 +54,7 @@
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="shifts_data.js"></script>
 <script src="dashboard.js"></script>
 <script>
   $(document).on("click", ".not-implemented", function(e){

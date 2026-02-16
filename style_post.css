@@ -18,7 +18,7 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-
 
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;}
 .field label{display:block;font-weight:bold;margin-bottom:6px;}
-.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;}
+.field input,field select,field textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;}
 .full{grid-column:1/-1;}
 
 .actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
@@ -59,7 +59,7 @@ footer{background:#333;color:#fff;padding:18px;text-align:center;margin-top:18px
 .slider:before{
   position:absolute;content:"";height:24px;width:24px;left:3px;top:3px;
   background:white;transition:.2s;border-radius:50%;
-  box-shadow:0 1px 3px rgba(0,0,0,.2);
+  box-shadow:0 1px 3px rgba(0,0,0,2);
 }
 .switch input:checked + .slider{background:#d93025;}
 .switch input:checked + .slider:before{transform:translateX(22px);}

@@ -1,114 +1,135 @@
 <?php
-// ========= process_post_shift.php =========
-// מקבל POST מהטופס, ולידציות צד שרת, INSERT ל-DB, ואז Redirect לדשבורד
+$host = "localhost";
+$port = 3306;
+$db   = "roiwi_ex3";
+$user = "roiwi_roiwi";
+$pass = "roiwi_roiwi";
 
-require_once __DIR__ . "/Includes/db.php";
+$conn = new mysqli($host, $user, $pass, $db, $port);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$conn->set_charset("utf8mb4");
 
-if ($conn instanceof mysqli) {
-  $conn->set_charset("utf8mb4");
+/* טבלה לפרסום משמרות */
+$conn->query("CREATE TABLE IF NOT EXISTS shifts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  k_name VARCHAR(255) NOT NULL,
+  city VARCHAR(100) NOT NULL,
+  shift_date DATE NOT NULL,
+  start_time TIME NOT NULL,
+  end_time TIME NOT NULL,
+  wage INT NOT NULL,
+  kids INT NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  urgent TINYINT(1) NOT NULL DEFAULT 0,
+  notes TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+
+/* פונקציות עזר */
+function die_bad($msg) { http_response_code(400); die($msg); }
+
+function compute_hours_label($start, $end) {
+  if ($start <= "09:00" && $end >= "15:00") return "מלא";
+  if ($start < "12:00") return "בוקר";
+  return "צהריים";
 }
 
-function h($s) {
-  return htmlspecialchars($s ?? "", ENT_QUOTES, "UTF-8");
+function compute_type_from_title($title) {
+  return (mb_strpos($title, "משפחתון") !== false) ? "משפחתון" : "גן";
 }
 
-function show_error_page($title, $errors = []) {
-  http_response_code(400);
-  echo "<!doctype html><html lang='he' dir='rtl'><head><meta charset='utf-8'>";
-  echo "<meta name='viewport' content='width=device-width,initial-scale=1'>";
-  echo "<title>" . h($title) . "</title></head>";
-  echo "<body style='font-family:Arial;max-width:900px;margin:20px auto;padding:0 14px;line-height:1.5'>";
-  echo "<h2>" . h($title) . "</h2>";
-  if (!empty($errors)) {
-    echo "<ul>";
-    foreach ($errors as $e) echo "<li>" . h($e) . "</li>";
-    echo "</ul>";
-  }
-  echo "<p><a href='post_shift.html'>חזרה לטופס</a></p>";
-  echo "</body></html>";
-  exit;
-}
-
+/* חייבים POST */
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-  show_error_page("גישה לא תקינה", ["Method not allowed"]);
+  die_bad("Method not allowed");
 }
 
-// קליטת נתונים
-$k_name     = trim($_POST["k_name"] ?? "");
-$city       = trim($_POST["city"] ?? "");
-$shift_date = trim($_POST["shift_date"] ?? "");
-$start_time = trim($_POST["start_time"] ?? "");
-$end_time   = trim($_POST["end_time"] ?? "");
-$wage       = trim($_POST["wage"] ?? "");
-$kids       = trim($_POST["kids"] ?? "");
-$phone      = trim($_POST["phone"] ?? "");
-$urgent     = isset($_POST["urgent"]) ? 1 : 0;
-$notes      = trim($_POST["notes"] ?? "");
+/* קליטת נתונים */
+$k_name     = trim($_POST['k_name'] ?? '');
+$city       = trim($_POST['city'] ?? '');
+$shift_date = trim($_POST['shift_date'] ?? '');
+$start_time = trim($_POST['start_time'] ?? '');
+$end_time   = trim($_POST['end_time'] ?? '');
+$wage       = trim($_POST['wage'] ?? '');
+$kids       = trim($_POST['kids'] ?? '');
+$phone      = trim($_POST['phone'] ?? '');
+$notes      = trim($_POST['notes'] ?? '');
+$urgent     = isset($_POST['urgent']) ? 1 : 0;
 
-// ולידציות צד שרת
-$errors = [];
-
-if ($k_name === "") $errors[] = "חובה למלא שם גן";
-if ($city === "") $errors[] = "חובה לבחור עיר";
-if ($shift_date === "") $errors[] = "חובה לבחור תאריך";
-if ($start_time === "" || $end_time === "") $errors[] = "חובה לבחור שעות";
-
-if ($wage === "" || !is_numeric($wage) || (int)$wage < 30 || (int)$wage > 100) {
-  $errors[] = "השכר חייב להיות בין 30 ל-100";
+/* ולידציות שרת */
+if ($k_name==='' || $city==='' || $shift_date==='' || $start_time==='' || $end_time==='' ||
+    $wage==='' || $kids==='' || $phone==='') {
+  die_bad("Missing required fields.");
 }
-if ($kids === "" || !is_numeric($kids) || (int)$kids < 1 || (int)$kids > 60) {
-  $errors[] = "מספר ילדים לא תקין";
-}
-if (!preg_match('/^05\d-?\d{7}$/', $phone)) {
-  $errors[] = "טלפון לא תקין (לדוגמה 0501234567)";
-}
-
-$today = date("Y-m-d");
-if ($shift_date !== "" && $shift_date < $today) {
-  $errors[] = "התאריך לא יכול להיות בעבר";
-}
-if ($start_time !== "" && $end_time !== "" && $end_time <= $start_time) {
-  $errors[] = "שעת סיום חייבת להיות אחרי שעת התחלה";
-}
-
-if (!empty($errors)) {
-  show_error_page("שגיאה בפרטי הטופס", $errors);
-}
-
-// INSERT
-$sql = "INSERT INTO shifts
-  (k_name, city, shift_date, start_time, end_time, wage, kids, phone, urgent, notes)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-$stmt = $conn->prepare($sql);
-if (!$stmt) {
-  show_error_page("שגיאת מערכת", ["כשל בהכנת השאילתה. בדוק טבלה/שמות עמודות/חיבור DB."]);
-}
-
 $wage_i = (int)$wage;
 $kids_i = (int)$kids;
 
-// 5x s, 2x i, s, i, s  => "sssssiiisis" (בלי רווחים)
+if ($wage_i < 30 || $wage_i > 100) die_bad("Invalid wage.");
+if ($kids_i < 1 || $kids_i > 60) die_bad("Invalid kids.");
+if (!preg_match('/^05\d-?\d{7}$/', $phone)) die_bad("Invalid phone.");
+if ($end_time <= $start_time) die_bad("Invalid time range.");
+
+$today = date("Y-m-d");
+if ($shift_date < $today) die_bad("Invalid date.");
+
+/* INSERT */
+$sql = "INSERT INTO shifts
+        (k_name, city, shift_date, start_time, end_time, wage, kids, phone, urgent, notes)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+$stmt = $conn->prepare($sql);
+if ($stmt === false) die_bad("Prepare failed: " . $conn->error);
+
 $stmt->bind_param(
-  "sssssiiisis",
-  $k_name,
-  $city,
-  $shift_date,
-  $start_time,
-  $end_time,
-  $wage_i,
-  $kids_i,
-  $phone,
-  $urgent,
-  $notes
+  "sssssiiiss",
+  $k_name, $city, $shift_date, $start_time, $end_time, $wage_i, $kids_i, $phone, $urgent, $notes
 );
 
-if (!$stmt->execute()) {
+if ($stmt->execute() === false) {
   $stmt->close();
-  show_error_page("שגיאת מערכת", ["שמירה נכשלה. בדוק חיבור DB וטבלת shifts."]);
+  die_bad("Insert failed: " . $stmt->error);
 }
-
 $stmt->close();
 
-header("Location: dashboard.php?saved=1");
+/* ייצור/עדכון קובץ סטטי shifts_data.js */
+$res = $conn->query("SELECT * FROM shifts ORDER BY id DESC");
+if (!$res) die_bad("Select failed: " . $conn->error);
+
+$rows = [];
+while ($r = $res->fetch_assoc()) {
+  $title = $r['k_name'];
+  $hours = compute_hours_label(substr($r['start_time'],0,5), substr($r['end_time'],0,5));
+  $type  = compute_type_from_title($title);
+
+  $rows[] = [
+    "id" => (int)$r["id"],
+    "title" => $title,
+    "city" => $r["city"],
+    "area" => "",
+    "address" => "",
+    "date" => $r["shift_date"],
+    "start" => substr($r["start_time"], 0, 5),
+    "end" => substr($r["end_time"], 0, 5),
+    "wage" => (int)$r["wage"],
+    "type" => $type,
+    "hours" => $hours,
+    "urgent" => ((int)$r["urgent"] === 1),
+    "ages" => "",
+    "requirements" => $r["notes"] ?? "",
+    "kids" => (int)$r["kids"],
+    "phone" => $r["phone"]
+  ];
+}
+
+$conn->close();
+
+$js = "/* auto-generated by post_shift.php - do not edit manually */\n";
+$js .= "window.SHIFTS = " . json_encode($rows, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ";\n";
+
+@file_put_contents(__DIR__ . "/shifts_data.js", $js, LOCK_EX);
+
+/* חזרה לחיפוש */
+header("Location: ShiftSearch.html?posted=1");
 exit;
+?>
