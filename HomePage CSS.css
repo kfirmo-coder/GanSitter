@@ -1,3 +1,4 @@
+/* הגדרות כלליות לעמוד */
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:Arial;background:#f9f9f9;color:#222;}
 
@@ -47,14 +48,18 @@ footer a:hover{color:#fff;}
 .b2{right:25%;top:55%;background:#188038;animation-delay:1s;}
 .b3{left:12%;top:30%;background:#fbbc04;animation-delay:2s;}
 .b4{left:20%;top:70%;background:#d93025;animation-delay:3s;}
+
+/* תנועת ריחוף */
 @keyframes floaty{
   0%{transform:translateY(0) scale(1);}
   50%{transform:translateY(-18px) scale(1.06);}
   100%{transform:translateY(0) scale(1);}
 }
 
+/* התאמות למסכים קטנים */
 @media screen and (max-width:800px){
   .home-page h1{font-size:30px;}
   nav{justify-content:center;}
   .menu-links{justify-content:center;}
 }
+
