@@ -69,14 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (city === "") errs.push("חובה לבחור עיר");
     if (address === "") errs.push("חובה למלא כתובת");
     if (shift_type === "") errs.push("חובה לבחור סוג מסגרת");
-    if(phone === "") errs.push("חובה למלא מספר טלפון");
     if(start==="") errs.push("חובה להכניס שעת התחלה");
     if(end==="") errs.push("חובה להכניס שעת סיום");
-    if(wage==="") errs.push("חובה להכניס שכר לשעה");
-    if(kids=="") errs.push("חובה להכניס מספר ילדים");
+    if(date==="") errs.push("חובה להכניס תאריך");
     if (!/^05\d-?\d{7}$/.test(phone)) errs.push("טלפון לא תקין. לדוגמה: 0501234567");
 
-    // ✅ מאפשר משמרת לילה (חוצה חצות), רק מונע זהות
     if (start && end && end === start) {
       errs.push("שעת סיום לא יכולה להיות זהה לשעת התחלה");
     }
