@@ -1,8 +1,9 @@
-/* =========  חלק: CSS  =========
+/*
    שם קובץ: /CSS/style_details.css
    תפקיד: עיצוב מסך פרטי משמרת + רספונסיביות
-================================ */
+ */
 
+/* הגדרות כלליות */
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:Arial;background:#f7f7fb;color:#222;}
 
@@ -18,9 +19,13 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-
 .back{text-decoration:none;color:#0b57d0;}
 .tag{background:#d93025;color:#fff;padding:6px 10px;border-radius:999px;font-size:12px;}
 
+/* כרטיס תוכן */
 .card{background:#fff;border:1px solid #eee;border-radius:14px;padding:16px;margin-bottom:12px;}
+
+/* הודעת אזהרה / מידע */
 .notice{background:#fff7e6;border:1px solid #ffe0a3;padding:12px;border-radius:12px;}
 
+/* גריד פרטי המשמרת */
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px;}
 .item{background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px;}
 .label{display:block;color:#666;font-size:12px;margin-bottom:6px;}
@@ -32,19 +37,23 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-
 .btn-gray{background:#888;cursor:default;}
 .small{color:#555;font-size:13px;}
 
+/* אקורדיון (תוכן מתקפל) */
 .accordion{margin-top:10px;}
 .acc-item{border:1px solid #eee;border-radius:12px;margin-top:10px;overflow:hidden;}
 .acc-head{width:100%;text-align:right;padding:12px;background:#f5f5f5;border:none;cursor:pointer;font-weight:bold;}
 .acc-body{display:none;padding:12px;background:#fff;}
 
+/* הודעת Toast קופצת */
 .toast{position:fixed;bottom:18px;right:18px;background:#111;color:#fff;padding:10px 12px;border-radius:12px;display:none;}
 
 footer{background:#333;color:#fff;padding:18px;text-align:center;}
 footer a{color:#ccc;margin:0 8px;text-decoration:none;}
 footer a:hover{color:#fff;}
 
+/* התאמה למסכים קטנים */
 @media (max-width:650px){
   nav{justify-content:center;}
   .menu-links{justify-content:center;}
   .grid{grid-template-columns:1fr;}
 }
+
