@@ -147,7 +147,7 @@ $(document).ready(function () {
       // שומר את המשמרת כדי שמסך הפרטים יקרא אותה
       localStorage.setItem("selectedShift", JSON.stringify(chosen));
       // שולח למסך פרטים עם מזהה בכתובת
-      window.location.href = "ShiftDetails.html?id=" + encodeURIComponent(id);
+      window.location.href = "../shift-details/ShiftDetails.html?id=" + encodeURIComponent(id);
     }
   });
 
@@ -174,3 +174,4 @@ $(document).ready(function () {
     $(this).removeClass("btn-blue").addClass("btn-gray").prop("disabled", true).text("נשלח ✅");
   });
 });
+
