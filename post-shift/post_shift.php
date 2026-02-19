@@ -108,7 +108,7 @@ function regenerate_shifts_js($conn) {
         "window.SHIFTS = " . $json . ";\n";
 
     /* נתיב לקובץ shifts_data.js באותה תיקייה */
-    $path = __DIR__ . "/GanSitter/shifts_data.js";
+    $path = __DIR__ . "/../shifts_data.js";
 
     /* כתיבת הקובץ מחדש */
     if (file_put_contents($path, $content) === false) {
@@ -205,4 +205,5 @@ $conn->close();
 header("Location: post_shift.html?success=1");
 exit;
 ?>
+
 
