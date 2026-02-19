@@ -1,11 +1,12 @@
-/* =========  חלק: CSS  =========
+/*
    שם קובץ: /CSS/style_shifts.css
    תפקיד: עיצוב מסך חיפוש משמרות + רספונסיביות
-================================ */
+*/
 
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:Arial;background:#f7f7fb;color:#222;}
 
+/* אזור עליון וניווט ראשי של האתר */
 header{background:#fff;border-bottom:1px solid #eee;padding:18px;}
 nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
 .menu-links{display:flex;gap:10px;flex-wrap:wrap;}
@@ -15,10 +16,12 @@ nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-
 .btn-primary{background:orange;color:#fff;padding:10px 18px;text-decoration:none;border-radius:8px;border:none;display:inline-block;}
 .btn-secondary{background:#fff;border:1px solid #ddd;padding:10px 14px;border-radius:10px;cursor:pointer;}
 
+/* מעטפת התוכן של עמוד חיפוש המשמרות עם אזור כותרת והסבר קצר על המסך */
 .page{max-width:1100px;margin:18px auto;padding:0 14px;}
 .top{background:#fff;border:1px solid #eee;border-radius:14px;padding:18px;margin-bottom:12px;}
 .sub{color:#555;margin-top:6px;}
 
+/* אזור סינון משמרות לפי קריטריונים */
 .filters{background:#fff;border:1px solid #eee;border-radius:14px;padding:14px;margin-bottom:12px;}
 .filter-bar .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
 label{font-weight:bold;}
@@ -49,6 +52,7 @@ footer{background:#333;color:#fff;padding:18px;text-align:center;}
 footer a{color:#ccc;margin:0 8px;text-decoration:none;}
 footer a:hover{color:#fff;}
 
+/* התאמות מובייל – שינוי מספר עמודות וסידור הפילטרים */
 @media (max-width:900px){
   .shifts-grid{grid-template-columns:repeat(2,1fr);}
 }
@@ -59,3 +63,4 @@ footer a:hover{color:#fff;}
   input,select{min-width:0;width:100%;}
   .filter-bar .row{align-items:stretch;}
 }
+
