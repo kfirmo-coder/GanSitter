@@ -1,6 +1,42 @@
+/* =========  חלק: JS + JQUERY  =========
+   שם קובץ: ShiftDetails.js
+   תפקיד: קבלת נתון מ-localStorage (מסך קודם) + שליחת מועמדות + Accordion
+======================================== */
+
 $(document).ready(function () {
-  function toast(msg) {
-    $("#toast").text(msg).fadeIn(150).delay(900).fadeOut(200);
+
+  function normalizeShift(s) {
+    if (!s) return s;
+
+    // תומך גם במבנה הישן וגם במבנה החדש שמגיע מה-PHP/DB
+    var out = {
+      id: s.id,
+
+      title: s.title || s.k_name || s.gan_name || "",
+
+      city: s.city || "",
+      area: s.area || s.shift_area || "",
+      address: s.address || s.shift_address || s.location || "",
+
+      date: s.date || s.shift_date || "",
+      start: s.start || s.start_time || "",
+      end: s.end || s.end_time || "",
+
+      wage: (s.wage != null ? s.wage : (s.hourly_wage != null ? s.hourly_wage : "")),
+      type: s.type || s.shift_type || "",
+
+      ages: s.ages || s.kids_age || "",
+      kids: (s.kids != null ? s.kids : ""),
+
+      requirements: s.requirements || s.notes || s.req || "",
+
+      urgent: !!s.urgent
+    };
+
+    // אם אין title אבל יש שם גן - נשתמש בו
+    if (!out.title) out.title = "פרטי משמרת";
+
+    return out;
   }
 
   function getApplied() {
@@ -8,80 +44,79 @@ $(document).ready(function () {
     if (!raw) return [];
     try { return JSON.parse(raw); } catch (e) { return []; }
   }
+
   function saveApplied(arr) {
     localStorage.setItem("appliedShifts", JSON.stringify(arr));
   }
 
-  function getIdFromQuery() {
-    var params = new URLSearchParams(window.location.search);
-    var v = params.get("id");
-    return v ? parseInt(v, 10) : null;
-  }
-
-  function findShiftById(id) {
-    var shifts = Array.isArray(window.SHIFTS) ? window.SHIFTS : [];
-    for (var i = 0; i < shifts.length; i++) {
-      if (shifts[i].id === id) return shifts[i];
-    }
-    return null;
-  }
-
-  var shift = null;
-
-  var qid = getIdFromQuery();
-  if (qid) shift = findShiftById(qid);
-
-  if (!shift) {
-    var raw = localStorage.getItem("selectedShift");
-    if (raw) {
-      try { shift = JSON.parse(raw); } catch (e) { shift = null; }
-    }
-  }
-
-  if (!shift) {
+  var raw = localStorage.getItem("selectedShift");
+  if (!raw) {
     $("#noShift").show();
     $("#detailsWrap").hide();
     return;
   }
 
-  $("#shiftTitle").text(shift.title || "פרטי משמרת");
-  $("#cityVal").text(shift.city || "");
-  $("#addressVal").text(shift.address || "");
-  $("#dateVal").text(shift.date || "");
-  $("#timeVal").text((shift.start || "") + " - " + (shift.end || ""));
-  $("#wageVal").text((shift.wage != null ? shift.wage : "") + "₪");
-  $("#typeVal").text(shift.type || "גן");
-  $("#agesVal").text(shift.ages || "");
-  $("#reqVal").text(shift.requirements || "");
+  var s = null;
+  try { s = JSON.parse(raw); } catch (e) { s = null; }
 
-  if (shift.urgent) $("#urgentTag").show();
+  if (!s) {
+    $("#noShift").show();
+    $("#detailsWrap").hide();
+    return;
+  }
+
+  // ✅ נרמול מבנה הנתונים
+  s = normalizeShift(s);
+
+  $("#shiftTitle").text(s.title || "פרטי משמרת");
+  $("#cityVal").text(s.city || "-");
+  $("#addressVal").text(s.address || "-");
+  $("#dateVal").text(s.date || "-");
+
+  // ✅ “(למחרת)” אם שעת סיום קטנה משעת התחלה
+  var endLabel = (s.end || "");
+  if (s.start && s.end && s.end < s.start) {
+    endLabel = s.end + " (למחרת)";
+  }
+  $("#timeVal").text((s.start || "") + " - " + (endLabel || ""));
+
+  $("#wageVal").text((s.wage || "-") + "₪ לשעה");
+  $("#typeVal").text(s.type || "-");
+  $("#agesVal").text(s.ages || "-");
+
+  // אם אין requirements אבל יש kids, אפשר להציג משהו בסיסי במקום "-" (לא חובה)
+  $("#reqVal").text(s.requirements || "-");
+
+  if (s.urgent) $("#urgentTag").show();
 
   var applied = getApplied();
   var already = false;
   for (var i = 0; i < applied.length; i++) {
-    if (applied[i].id === shift.id) already = true;
+    if (applied[i].id === s.id) already = true;
   }
+
   if (already) {
-    $("#applyBtn").prop("disabled", true).text("כבר הוגש ✅");
-    $("#applyStatus").text("כבר הגשת מועמדות למשמרת הזו.");
+    $("#applyBtn").removeClass("btn-green").addClass("btn-gray").prop("disabled", true).text("נשלח ✅");
+    $("#applyStatus").text("כבר שלחת מועמדות למשמרת הזאת");
   }
 
   $("#applyBtn").on("click", function () {
-    var applied2 = getApplied();
+    var arr = getApplied();
     var exists = false;
-    for (var i = 0; i < applied2.length; i++) {
-      if (applied2[i].id === shift.id) exists = true;
+    for (var j = 0; j < arr.length; j++) {
+      if (arr[j].id === s.id) exists = true;
     }
     if (!exists) {
-      applied2.push({ id: shift.id, title: shift.title, city: shift.city, date: shift.date, wage: shift.wage });
-      saveApplied(applied2);
+      arr.push({ id: s.id, title: s.title, city: s.city, date: s.date, wage: s.wage });
+      saveApplied(arr);
     }
-    $("#applyBtn").prop("disabled", true).text("נשלח ✅");
-    $("#applyStatus").text("המועמדות נשלחה.");
-    toast("המועמדות נשלחה בהצלחה ✅");
+
+    $(this).removeClass("btn-green").addClass("btn-gray").prop("disabled", true).text("נשלח ✅");
+    $("#applyStatus").text("נשלח עכשיו");
+    $("#toast").fadeIn(150).delay(1200).fadeOut(200);
   });
 
-  $(document).on("click", ".acc-head", function () {
+  $(".acc-head").on("click", function () {
     var body = $(this).next(".acc-body");
     $(".acc-body").not(body).slideUp(150);
     body.slideToggle(150);

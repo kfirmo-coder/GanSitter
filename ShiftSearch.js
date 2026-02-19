@@ -19,7 +19,13 @@ $(document).ready(function () {
       if (s.urgent) html += '<span class="badge">דחוף</span>';
       html += "<h3>" + s.title + "</h3>";
       html += '<p class="meta">📍 ' + s.city + (s.area ? " (" + s.area + ")" : "") + "</p>";
-      html += '<p class="meta">📅 ' + s.date + " | " + s.start + " - " + s.end + "</p>";
+     var endLabel = s.end;
+     if (s.start && s.end && s.end < s.start) {
+      endLabel = s.end + " (למחרת)";
+      }
+
+     html += "<p>📅 " + s.date + " | " + s.start + " - " + endLabel + "</p>";
+
       html += '<p class="meta">💰 ' + s.wage + "₪ / שעה</p>";
       html += '<p class="meta">🏫 ' + (s.type || "גן") + " | 🕒 " + (s.hours || "") + "</p>";
       html += '<div class="card-actions">';

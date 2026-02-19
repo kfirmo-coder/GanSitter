@@ -26,15 +26,35 @@
     <p class="sub">ממלאים ושולחים.</p>
 
     <div id="serverMsg" class="msg" style="display:none;"></div>
+    <div id="successMsg" class="msg success" style="display:none;">
+     המשמרת פורסמה בהצלחה ✅
+     </div>
 
-    <form id="postForm" method="post" action="post_shift.php" novalidate>
+    <form id="postForm" method="post" action="https://roiwi.mtacloud.co.il/post_shift.php" novalidate>
       <div class="grid">
 
         <div class="field">
           <label for="k_name">שם הגן</label>
           <input type="text" id="k_name" name="k_name" required />
         </div>
-
+         <div class="field">
+          <label for="address">כתובת</label>
+          <input type="text" id="address" name="address" placeholder="רחוב ומספר" required>
+       </div>
+        <div class="field">
+         <label for="shift_type">סוג מסגרת</label>
+         <select id="shift_type" name="shift_type" required>
+         <option value="גן">גן</option>
+         <option value="צהרון">צהרון</option>
+         <option value="קייטנה">קייטנה</option>
+         <option value="משפחתון">משפחתון</option>
+         </select>
+        </div>
+        <div class="field">
+         <label for="ages">גילאים</label>
+         <input type="text" id="ages" name="ages" placeholder="לדוגמה: 3-5" >
+        </div>
+   
         <div class="field">
           <label for="city">עיר</label>
           <select id="city" name="city" required>
