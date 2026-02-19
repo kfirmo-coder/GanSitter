@@ -25,12 +25,16 @@
 <main class="page">
   <div class="topline">
     <a class="back" href="ShiftSearch.html">← חזרה לחיפוש</a>
+    <!-- מוצג רק אם המשמרת מסומנת כדחופה -->
     <span id="urgentTag" class="tag" style="display:none;">דחוף</span>
   </div>
 
   <section id="detailsWrap" class="card">
     <h2 id="shiftTitle">פרטי משמרת</h2>
-
+    <!--
+      פרטי המשמרת נטענים דינמית באמצעות JavaScript
+      לפי הבחירה במסך החיפוש
+    -->
     <div class="grid">
       <div class="item">
         <span class="label">עיר</span>
@@ -72,12 +76,14 @@
         <span class="value" id="reqVal"></span>
       </div>
     </div>
-
+    
+    <!-- כפתור מפעיל פעולה דרך JS ומעדכן סטטוס למשתמש -->
     <div class="actions">
       <button id="applyBtn" type="button" class="btn-action btn-green">הגש מועמדות</button>
       <span id="applyStatus" class="small"></span>
     </div>
-
+    
+    <!-- אקורדיון: נפתח ונסגר באמצעות JS -->
     <div class="accordion">
       <div class="acc-item">
         <button type="button" class="acc-head">מידע נוסף</button>
@@ -87,12 +93,13 @@
       </div>
     </div>
   </section>
-
+  
+  <!-- מוצג אם אין נתוני משמרת (למשל כניסה ישירה לעמוד) -->
   <section id="noShift" class="card" style="display:none;">
     <h3>לא נמצאה משמרת</h3>
     <p class="notice">חזרו לחיפוש ובחרו משמרת מחדש.</p>
   </section>
-
+  <!-- הודעת הצלחה קופצת לאחר פעולה -->
   <div id="toast" class="toast">נשלח ✅</div>
 </main>
 
@@ -115,3 +122,4 @@
 </script>
 </body>
 </html>
+
