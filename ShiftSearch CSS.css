@@ -1,0 +1,66 @@
+/*
+   שם קובץ: /CSS/style_shifts.css
+   תפקיד: עיצוב מסך חיפוש משמרות + רספונסיביות
+*/
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial;background:#f7f7fb;color:#222;}
+
+/* אזור עליון וניווט ראשי של האתר */
+header{background:#fff;border-bottom:1px solid #eee;padding:18px;}
+nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.menu-links{display:flex;gap:10px;flex-wrap:wrap;}
+.menu-links a{text-decoration:none;color:#333;padding:10px;border-radius:8px;}
+.menu-links a:hover{background:#f3f3f3;}
+.menu-links a.active{color:#0b57d0;font-weight:bold;border-bottom:2px solid #0b57d0;border-radius:0;}
+.btn-primary{background:orange;color:#fff;padding:10px 18px;text-decoration:none;border-radius:8px;border:none;display:inline-block;}
+.btn-secondary{background:#fff;border:1px solid #ddd;padding:10px 14px;border-radius:10px;cursor:pointer;}
+
+/* מעטפת התוכן של עמוד חיפוש המשמרות עם אזור כותרת והסבר קצר על המסך */
+.page{max-width:1100px;margin:18px auto;padding:0 14px;}
+.top{background:#fff;border:1px solid #eee;border-radius:14px;padding:18px;margin-bottom:12px;}
+.sub{color:#555;margin-top:6px;}
+
+/* אזור סינון משמרות לפי קריטריונים */
+.filters{background:#fff;border:1px solid #eee;border-radius:14px;padding:14px;margin-bottom:12px;}
+.filter-bar .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
+label{font-weight:bold;}
+input,select{padding:8px;border:1px solid #ddd;border-radius:10px;min-width:160px;}
+input[type="range"]{min-width:220px;}
+.check{display:flex;gap:8px;align-items:center;font-weight:normal;}
+.chip{background:#f1f3f4;border:1px solid #e4e4e4;padding:6px 10px;border-radius:999px;}
+
+.status{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:10px;color:#333;}
+#statusNote{color:#666;}
+
+.results{padding:6px 0 18px;}
+.shifts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+
+.shift-card{background:#fff;border:1px solid #eee;border-radius:14px;padding:14px;position:relative;}
+.shift-card h3{margin-bottom:6px;}
+.meta{color:#444;margin-top:6px;}
+.badge{position:absolute;left:12px;top:12px;background:#d93025;color:#fff;padding:4px 8px;border-radius:999px;font-size:12px;}
+.badge.hidden{display:none;}
+
+.card-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.btn-action{border:none;border-radius:10px;padding:10px 12px;cursor:pointer;color:#fff;}
+.btn-green{background:#188038;}
+.btn-blue{background:#0b57d0;}
+.btn-gray{background:#888;cursor:default;}
+
+footer{background:#333;color:#fff;padding:18px;text-align:center;}
+footer a{color:#ccc;margin:0 8px;text-decoration:none;}
+footer a:hover{color:#fff;}
+
+/* התאמות מובייל – שינוי מספר עמודות וסידור הפילטרים */
+@media (max-width:900px){
+  .shifts-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:650px){
+  nav{justify-content:center;}
+  .menu-links{justify-content:center;}
+  .shifts-grid{grid-template-columns:1fr;}
+  input,select{min-width:0;width:100%;}
+  .filter-bar .row{align-items:stretch;}
+}
+

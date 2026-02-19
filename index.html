@@ -13,7 +13,7 @@
   <title>GanSitter - דף הבית</title>
   <!-- כותרת הדף בלשונית -->
 
-  <link rel="stylesheet" href="home-page/HomePage CSS.css">
+  <link rel="stylesheet" href="HomePage CSS.css">
   <!-- חיבור לקובץ העיצוב של דף הבית -->
 </head>
 
@@ -29,12 +29,12 @@
     <div class="menu-links">
       <!-- active מסמן שהמשתמש נמצא בדף הבית -->
       <a href="index.html" class="active">דף הבית</a>
-      <a href="shift-search/ShiftSearch.html">חיפוש משמרות</a>
-      <a href="dashboard/dashboard.html">אזור אישי</a>
+      <a href="ShiftSearch.html">חיפוש משמרות</a>
+      <a href="dashboard.html">אזור אישי</a>
     </div>
 
     <!-- כפתור פעולה מרכזי (CTA) לפרסום צורך -->
-    <a href="post-shift/post_shift.html" class="btn-primary">פרסם צורך</a>
+    <a href="post_shift.html" class="btn-primary">פרסם צורך</a>
   </nav>
 </header>
 
@@ -68,7 +68,7 @@
         <h2>🏫 אני גן ילדים</h2>
         <p>מפרסמים צורך חד־פעמי.</p>
         <!-- כפתור/לינק לפעולה מרכזית: פרסום משמרת -->
-        <a href="post-shift/post_shift.html" class="btn-action blue">פרסום צורך למשמרת</a>
+        <a href="post_shift.html" class="btn-action blue">פרסום צורך למשמרת</a>
       </article>
 
       <!-- כרטיס לגננות/מחפשות עבודה -->
@@ -76,7 +76,7 @@
         <h2>👩‍🏫 אני מחפשת עבודה</h2>
         <p>מסננים ומגישים מועמדות בלחיצה.</p>
         <!-- כפתור/לינק לפעולה מרכזית: מעבר לדף חיפוש משמרות -->
-        <a href="shift-search/ShiftSearch.html" class="btn-action green">חיפוש משמרות</a>
+        <a href="ShiftSearch.html" class="btn-action green">חיפוש משמרות</a>
       </article>
 
     </div>
@@ -152,7 +152,7 @@
         <p>📅 מחר, 07:30 - 16:00</p>
         <p>💰 50₪ / שעה</p>
         <!-- מעבר לדף חיפוש משמרות -->
-        <a href="shift-search/ShiftSearch.html" class="btn-action green">לכל המשמרות</a>
+        <a href="ShiftSearch.html" class="btn-action green">לכל המשמרות</a>
       </div>
 
       <!-- כרטיס משמרת 2 -->
@@ -161,7 +161,7 @@
         <p>📍 רמת גן</p>
         <p>📅 היום, 14:00 - 17:00</p>
         <p>💰 45₪ / שעה</p>
-        <a href="shift-search/ShiftSearch.html" class="btn-action green">לכל המשמרות</a>
+        <a href="ShiftSearch.html" class="btn-action green">לכל המשמרות</a>
       </div>
 
     </div>
@@ -180,8 +180,8 @@
 
 <!-- ================= INLINE JS ================= -->
 <script>
-  // הודעה לתפריטים/לינקים שלא מומשו 
-  // מאזין לכל קליק במסמך 
+  // הודעה לתפריטים/לינקים שלא מומשו (לפי ההנחיות)
+  // מאזין לכל קליק במסמך (Event Delegation)
   document.addEventListener("click", function(e){
     // אם האלמנט שנלחץ כולל את המחלקה not-implemented
     if (e.target.classList.contains("not-implemented")) {
@@ -193,8 +193,3 @@
 
 </body>
 </html>
-
-
-
-
-

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!-- מסמך HTML5 תקני -->
+<html lang="he" dir="rtl">
+<!-- lang="he" לשפה עברית
+     dir="rtl" לכתיבה מימין לשמאל -->
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- קידוד UTF-8 לתמיכה בעברית ותווים מיוחדים -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- רספונסיביות למובייל -->
+
+  <title>GanSitter - פרסום צורך למשמרת</title>
+  <!-- כותרת הדפדפן -->
+
+  <link rel="stylesheet" href="style_post.css" />
+  <!-- קישור לקובץ ה-CSS של עמוד פרסום משמרת -->
+</head>
+
+<body>
+
+<!-- ================= HEADER + NAV ================= -->
+<header>
+  <nav>
+    <!-- לוגו/שם מערכת -->
+    <h1>GanSitter</h1>
+
+    <!-- תפריט ניווט ראשי -->
+    <div class="menu-links">
+      <a href="index.html">דף הבית</a>
+      <a href="ShiftSearch.html">חיפוש משמרות</a>
+      <a href="dashboard.html">אזור אישי</a>
+    </div>
+
+    <!-- כפתור CTA לפרסום צורך -->
+    <a href="post_shift.html" class="btn-primary">פרסם צורך</a>
+  </nav>
+</header>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main class="page">
+  <!-- כרטיס מרכזי של הטופס -->
+  <section class="card">
+
+    <h2>פרסום צורך למשמרת</h2>
+    <p class="sub">ממלאים ושולחים.</p>
+
+    <!-- אזור הודעות דינמי (שגיאה/הצלחה) שמנוהל ע"י JS -->
+    <div id="serverMsg" class="msg" style="display:none;"></div>
+
+    <!-- הודעת הצלחה סטטית (כברירת מחדל מוסתרת) -->
+    <div id="successMsg" class="msg success" style="display:none;">
+     המשמרת פורסמה בהצלחה ✅
+     </div>
+
+    <!-- ================= FORM ================= -->
+    <!-- novalidate מבטל ולידציה דיפולטיבית של הדפדפן
+         ומאפשר ל-JS לבצע ולידציה מותאמת -->
+    <form id="postForm"
+          method="post"
+          action="https://roiwi.mtacloud.co.il/post_shift.php"
+          novalidate>
+
+      <!-- גריד דו-עמודי (מוגדר ב-CSS) -->
+      <div class="grid">
+
+        <!-- ===== שם גן ===== -->
+        <div class="field">
+          <label for="k_name">שם הגן</label>
+          <input type="text" id="k_name" name="k_name" required />
+        </div>
+
+        <!-- ===== כתובת ===== -->
+        <div class="field">
+          <label for="address">כתובת</label>
+          <input type="text" id="address" name="address"
+                 placeholder="רחוב ומספר" required>
+       </div>
+
+        <!-- ===== סוג מסגרת ===== -->
+        <div class="field">
+         <label for="shift_type">סוג מסגרת</label>
+         <select id="shift_type" name="shift_type" required>
+           <option value="גן">גן</option>
+           <option value="צהרון">צהרון</option>
+           <option value="קייטנה">קייטנה</option>
+           <option value="משפחתון">משפחתון</option>
+         </select>
+        </div>
+
+        <!-- ===== גילאים ===== -->
+        <div class="field">
+         <label for="ages">גילאים</label>
+         <input type="text" id="ages" name="ages"
+                placeholder="לדוגמה: 3-5">
+        </div>
+
+        <!-- ===== עיר ===== -->
+        <div class="field">
+          <label for="city">עיר</label>
+          <select id="city" name="city" required>
+            <option value="">בחר</option>
+            <option value="תל אביב">תל אביב</option>
+            <option value="רמת גן">רמת גן</option>
+            <option value="גבעתיים">גבעתיים</option>
+            <option value="פתח תקווה">פתח תקווה</option>
+          </select>
+        </div>
+
+        <!-- ===== תאריך ===== -->
+        <div class="field">
+          <label for="shift_date">תאריך</label>
+          <input type="date" id="shift_date"
+                 name="shift_date" required />
+        </div>
+
+        <!-- ===== שעת התחלה ===== -->
+        <div class="field">
+          <label for="start_time">שעת התחלה</label>
+          <input type="time" id="start_time"
+                 name="start_time" required />
+        </div>
+
+        <!-- ===== שעת סיום ===== -->
+        <div class="field">
+          <label for="end_time">שעת סיום</label>
+          <input type="time" id="end_time"
+                 name="end_time" required />
+        </div>
+
+        <!-- ===== שכר ===== -->
+        <div class="field">
+          <label for="wage">שכר לשעה (₪)</label>
+          <!-- min/max מגביל טווח גם בצד לקוח -->
+          <input type="number" id="wage" name="wage"
+                 min="30" max="100" required />
+        </div>
+
+        <!-- ===== מספר ילדים ===== -->
+        <div class="field">
+          <label for="kids">מספר ילדים</label>
+          <input type="number" id="kids" name="kids"
+                 min="1" max="60" required />
+        </div>
+
+        <!-- ===== טלפון ===== -->
+        <div class="field">
+          <label for="phone">טלפון איש קשר</label>
+          <input type="tel" id="phone" name="phone"
+                 placeholder="0501234567" required />
+        </div>
+
+        <!-- ===== הערות ===== -->
+        <!-- full גורם לשדה להשתרע על כל רוחב הגריד -->
+        <div class="field full">
+          <label for="notes">הערות / דרישות</label>
+          <textarea id="notes" name="notes" rows="4"></textarea>
+        </div>
+
+        <!-- ===== Toggle דחוף ===== -->
+        <div class="field full">
+          <div class="urgent-row" id="urgentRow">
+
+            <!-- טקסט הסבר -->
+            <div class="urgent-text">
+              <div class="urgent-title">דחוף</div>
+              <div class="urgent-sub">
+                מסמן את המשמרת כעדיפות גבוהה
+              </div>
+            </div>
+
+            <!-- מתג עיצובי מבוסס checkbox -->
+            <label class="switch" aria-label="דחוף">
+              <input type="checkbox"
+                     id="urgent" name="urgent" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== כפתורי פעולה ===== -->
+      <div class="actions">
+        <!-- כפתור שליחה -->
+        <button type="submit"
+                class="btn-primary"
+                id="submitBtn">
+          שמור ופרסם
+        </button>
+
+        <!-- ביטול וחזרה לדף הבית -->
+        <a href="index.html"
+           class="btn-secondary">
+           ביטול
+        </a>
+      </div>
+
+    </form>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <p>GanSitter</p>
+</footer>
+
+<!-- קובץ JS שמבצע ולידציה צד-לקוח והודעות -->
+<script src="post_shift.js"></script>
+
+</body>
+</html>
