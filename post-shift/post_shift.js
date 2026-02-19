@@ -1,7 +1,4 @@
-/* ================================
-   קובץ: (לדוגמה) post_shift.js
-   תפקיד: ולידציה צד-לקוח לטופס פרסום משמרת + הודעות הצלחה/שגיאה
-================================ */
+
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ריצה רק אחרי שה-DOM נטען כדי שהאלמנטים יהיו זמינים */
@@ -125,3 +122,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
