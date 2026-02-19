@@ -1,13 +1,16 @@
 $(document).ready(function () {
   function toast(msg) {
+    // מציג הודעה קצרה שנעלמת לבד
     $("#toast").text(msg).fadeIn(150).delay(900).fadeOut(200);
   }
 
   $(document).on("click", ".viewDetails", function () {
+    // קורא את נתוני המשמרת שנשמרו בתוך המאפיין של הכרטיס
     var raw = $(this).closest(".post").attr("data-shift");
     if (!raw) return;
     try {
       var s = JSON.parse(raw);
+      // שומר בדפדפן כדי שמסך הפרטים יקרא את המשמרת
       localStorage.setItem("selectedShift", JSON.stringify(s));
       window.location.href = "ShiftDetails.html?id=" + encodeURIComponent(s.id);
     } catch (e) {
@@ -16,6 +19,7 @@ $(document).ready(function () {
   });
 
   $(document).on("click", ".closeShift", function () {
+    // שינוי תצוגה מקומי בלבד (בלי עדכון לשרת)
     var post = $(this).closest(".post");
     post.find(".status").removeClass("open urgent").addClass("closed").text("נסגרה");
     $(this).prop("disabled", true).addClass("gray");
@@ -24,6 +28,7 @@ $(document).ready(function () {
   });
 
   function loadMyApps() {
+    // טוען מהדפדפן את רשימת המועמדויות שהמשתמש הגיש
     var raw = localStorage.getItem("appliedShifts");
     var arr = [];
     if (raw) { try { arr = JSON.parse(raw); } catch (e) { arr = []; } }
@@ -45,10 +50,11 @@ $(document).ready(function () {
   }
 
   function loadPostsFromStaticData() {
+    // הגנה: אם אין נתונים – עובדים עם מערך ריק
     var shifts = Array.isArray(window.SHIFTS) ? window.SHIFTS : [];
     var wrap = $("#myPostsWrap");
 
-    if (!wrap.length) return;
+    if (!wrap.length) return; // אם האזור לא קיים בדף – לא עושים כלום
 
     if (!shifts.length) {
       $("#noPostsMsg").show();
@@ -61,12 +67,16 @@ $(document).ready(function () {
     for (var i = 0; i < shifts.length; i++) {
       var r = shifts[i];
 
+      // שומרים את כל האובייקט בתוך מאפיין כדי שנוכל לפתוח פרטים בלחיצה
+      // החלפה של גרש ב-&apos; כדי לא לשבור את המחרוזת
       html += '<article class="post" data-post-id="' + r.id + '" data-shift=\'' + JSON.stringify(r).replace(/'/g, "&apos;") + '\'>';
+
       html += '<div class="post-head">';
       html += '<div>';
       html += '<strong>' + r.title + '</strong>';
       html += '<div class="meta">📍 ' + r.city + ' | 📅 ' + r.date + ' | ' + r.start + '-' + r.end + '</div>';
       html += '</div>';
+
       html += '<div class="right">';
       if (r.urgent) html += '<span class="status urgent">דחוף</span>';
       else html += '<span class="status open">פתוחה</span>';
