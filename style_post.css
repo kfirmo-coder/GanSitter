@@ -1,36 +1,121 @@
 /* ========= style_post.css ========= */
 
+/* Reset בסיסי לכל האלמנטים:
+   - box-sizing: border-box כדי שה-padding וה-border ייכנסו לחישוב הרוחב/גובה
+   - איפוס margin/padding כדי למנוע סטיילים דיפולטיביים של הדפדפן */
 *{box-sizing:border-box;margin:0;padding:0;}
+
+/* הגדרות כלליות לעמוד:
+   - font-family בסיסי
+   - צבע רקע כללי
+   - צבע טקסט ברירת מחדל */
 body{font-family:Arial;background:#f7f7fb;color:#222;}
 
+/* Header:
+   - רקע לבן
+   - קו תחתון עדין
+   - padding פנימי */
 header{background:#fff;border-bottom:1px solid #eee;padding:18px;}
+
+/* Nav:
+   - פריסה עם flex לשורה אחת נוחה
+   - ריווח בין אזורים (לינקים מול כפתורים/אזורי פעולה)
+   - wrap כדי שלא יישבר במסכים צרים */
 nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+
+/* קבוצת לינקים בתפריט:
+   - פריסה אופקית עם רווחים
+   - wrap כדי שהלינקים ירדו שורה במסכים קטנים */
 .menu-links{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* עיצוב בסיסי ללינקים בתפריט */
 .menu-links a{text-decoration:none;color:#333;padding:10px;border-radius:8px;}
+
+/* מצב hover ללינקים בתפריט כדי לתת פידבק למשתמש */
 .menu-links a:hover{background:#f3f3f3;}
 
+/* כפתור ראשי (CTA):
+   - רקע כתום
+   - טקסט לבן
+   - מתאים גם ל <a> וגם ל <button> (display: inline-block, border: none וכו') */
 .btn-primary{background:orange;color:#fff;padding:10px 18px;text-decoration:none;border-radius:8px;border:none;display:inline-block;cursor:pointer;}
+
+/* כפתור משני:
+   - רקע לבן
+   - מסגרת עדינה
+   - שימושי לפעולות פחות חשובות */
 .btn-secondary{background:#fff;border:1px solid #ddd;padding:10px 14px;border-radius:10px;text-decoration:none;color:#222;display:inline-block;}
 
+/* Wrapper של התוכן:
+   - מרכז את הדף
+   - מגביל רוחב מקסימלי
+   - padding צדדי כדי שלא “ידבק” לשוליים במסכים קטנים */
 .page{max-width:900px;margin:18px auto;padding:0 14px;}
+
+/* Card:
+   - קופסה לבנה עם מסגרת ורדיוס
+   - padding פנימי כדי לתת “אוויר” */
 .card{background:#fff;border:1px solid #eee;border-radius:14px;padding:16px;}
+
+/* טקסט משני (subtitle/description):
+   - צבע מעט אפור
+   - ריווח למעלה ולמטה */
 .sub{color:#555;margin-top:6px;margin-bottom:12px;}
 
+/* Grid לשדות טופס:
+   - 2 עמודות במסכים רחבים
+   - gap בין תאים */
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;}
+
+/* Label של שדה:
+   - block כדי שישב מעל השדה
+   - בולט (bold) + רווח קטן למטה */
 .field label{display:block;font-weight:bold;margin-bottom:6px;}
+
+/* שדות טופס (input/select/textarea):
+   - רוחב מלא
+   - padding לנוחות
+   - מסגרת ורדיוס עדין
+   הערה: יש כאן "field select/textarea" בלי נקודה לפני field — נשאר כמו שהוא לפי ההנחיה שלך לא לשנות קוד */
 .field input,field select,field textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;}
+
+/* אלמנט שצריך לתפוס את כל רוחב הגריד (למשל textarea ארוך / הודעה / שדה רחב) */
 .full{grid-column:1/-1;}
 
+/* אזור כפתורים/פעולות:
+   - flex כדי לסדר כפתורים בשורה
+   - wrap למסכים קטנים
+   - gap כדי ליצור רווחים בין כפתורים */
 .actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
 
+/* הודעות מערכת (error/success/info):
+   - padding + רדיוס
+   - מסגרת עדינה
+   - line-height לקריאות */
 .msg{padding:12px;border-radius:12px;margin-bottom:12px;border:1px solid #eee;line-height:1.35;}
+
+/* הודעת שגיאה: רקע אדמדם עדין + מסגרת אדומה */
 .msg.error{background:#ffecec;border-color:#ffc7c7;}
+
+/* הודעת הצלחה: רקע ירקרק עדין + מסגרת ירקרקה */
 .msg.success{background:#eaffef;border-color:#b7f0c4;}
+
+/* הודעת מידע: רקע כחול עדין + מסגרת תואמת */
 .msg.info{background:#eef6ff;border-color:#c9e0ff;}
 
+/* Footer:
+   - רקע כהה וטקסט לבן
+   - padding
+   - יישור למרכז
+   - מרווח מהתוכן מעל */
 footer{background:#333;color:#fff;padding:18px;text-align:center;margin-top:18px;}
 
 /* ===== דחוף - שורה מסודרת + Toggle ===== */
+
+/* שורת “דחוף”:
+   - flex לסידור טקסט + מתג באותה שורה
+   - ריווח פנימי
+   - רקע אפור-בהיר כדי להדגיש שזה בלוק עצמאי */
 .urgent-row{
   display:flex;
   align-items:center;
@@ -41,29 +126,54 @@ footer{background:#333;color:#fff;padding:18px;text-align:center;margin-top:18px
   border-radius:12px;
   background:#fafafa;
 }
+
+/* כותרת לשורת דחוף */
 .urgent-title{font-weight:bold;}
+
+/* טקסט הסבר קטן מתחת לכותרת */
 .urgent-sub{color:#666;font-size:13px;margin-top:4px;}
 
+/* מצב “פעיל” של השורה (כשהדחוף מסומן):
+   - מסגרת בצבע אדמדם
+   - רקע ורדרד עדין */
 .urgent-row.active{
   border-color:#ffc7c7;
   background:#fff3f3;
 }
 
-/* Toggle Switch */
+/* Toggle Switch (מיכל המתג):
+   - position: relative כדי למקם את ה-slider בפנים
+   - גודל קבוע כדי לייצר מתג עקבי */
 .switch{position:relative;display:inline-block;width:52px;height:30px;flex:0 0 auto;}
+
+/* מסתירים את ה-checkbox המקורי ומשאירים רק את העיצוב של ה-slider */
 .switch input{opacity:0;width:0;height:0;}
+
+/* פס הרקע של המתג (המסילה):
+   - absolute בתוך .switch
+   - transition להחלקה */
 .slider{
   position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;
   background:#cfcfcf;transition:.2s;border-radius:999px;
 }
+
+/* הכפתור העגול (ה-thumb) של המתג */
 .slider:before{
   position:absolute;content:"";height:24px;width:24px;left:3px;top:3px;
   background:white;transition:.2s;border-radius:50%;
+  /* צל קטן כדי לתת עומק (שימי לב שה-opacity כאן הוא 2 לפי הקוד המקורי; לא נוגע בזה) */
   box-shadow:0 1px 3px rgba(0,0,0,2);
 }
+
+/* כשה-checkbox מסומן:
+   - מחליפים צבע למסילה
+   - מזיזים את ה-thumb ימינה */
 .switch input:checked + .slider{background:#d93025;}
 .switch input:checked + .slider:before{transform:translateX(22px);}
 
+/* Responsive:
+   - במסכים עד 650px, ממרכזים את ה-nav והלינקים
+   - הגריד הופך לעמודה אחת */
 @media (max-width:650px){
   nav{justify-content:center;}
   .menu-links{justify-content:center;}
