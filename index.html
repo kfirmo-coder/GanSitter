@@ -1,76 +1,124 @@
 <!DOCTYPE html>
+<!-- מסמך HTML5 תקני -->
 <html lang="he" dir="rtl">
+<!-- lang="he" = עברית | dir="rtl" = ימין-לשמאל -->
+
 <head>
   <meta charset="UTF-8">
+  <!-- קידוד UTF-8 לתמיכה בעברית ותווים מיוחדים -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- רספונסיביות למסכים קטנים (מובייל) -->
+
   <title>GanSitter - דף הבית</title>
+  <!-- כותרת הדף בלשונית -->
+
   <link rel="stylesheet" href="HomePage CSS.css">
+  <!-- חיבור לקובץ העיצוב של דף הבית -->
 </head>
+
 <body>
 
+<!-- ================= HEADER + NAV ================= -->
 <header>
   <nav>
+    <!-- שם המערכת / לוגו טקסטואלי -->
     <h1>GanSitter</h1>
 
+    <!-- לינקים ראשיים לניווט -->
     <div class="menu-links">
+      <!-- active מסמן שהמשתמש נמצא בדף הבית -->
       <a href="index.html" class="active">דף הבית</a>
       <a href="ShiftSearch.html">חיפוש משמרות</a>
-<a href="dashboard.html">אזור אישי</a>
+      <a href="dashboard.html">אזור אישי</a>
     </div>
 
+    <!-- כפתור פעולה מרכזי (CTA) לפרסום צורך -->
     <a href="post_shift.html" class="btn-primary">פרסם צורך</a>
   </nav>
 </header>
 
+<!-- ================= MAIN CONTENT ================= -->
 <main>
+
+  <!-- ===== HERO SECTION (כותרת + תיאור + אנימציה + כרטיסים) ===== -->
   <section class="home-page">
+
+    <!-- כותרת ראשית של דף הבית -->
     <h1>צריכים ממלאת מקום ליום אחד? מוצאים מהר ובבטחה.</h1>
+
+    <!-- תיאור קצר של המטרה/הערך של המערכת -->
     <p>גנים מפרסמים צורך חד־פעמי, גננות מגישות מועמדות, והכל מנוהל בצורה מסודרת.</p>
 
+    <!-- אלמנט ויזואלי/אנימציה דקורטיבית (ללא תוכן פונקציונלי) -->
+    <!-- aria-hidden="true" כדי שמקריאי מסך יתעלמו מאלמנטים דקורטיביים -->
     <div class="hero-anim" aria-hidden="true">
+      <!-- בועות/אלמנטים לאנימציה ב-CSS -->
       <span class="bubble b1"></span>
       <span class="bubble b2"></span>
       <span class="bubble b3"></span>
       <span class="bubble b4"></span>
     </div>
 
+    <!-- כרטיסי CTA: מסלולים שונים למשתמשים שונים (גן / מחפשת עבודה) -->
     <div class="cards-container">
+
+      <!-- כרטיס לגנים -->
       <article class="card">
         <h2>🏫 אני גן ילדים</h2>
         <p>מפרסמים צורך חד־פעמי.</p>
+        <!-- כפתור/לינק לפעולה מרכזית: פרסום משמרת -->
         <a href="post_shift.html" class="btn-action blue">פרסום צורך למשמרת</a>
       </article>
 
+      <!-- כרטיס לגננות/מחפשות עבודה -->
       <article class="card">
         <h2>👩‍🏫 אני מחפשת עבודה</h2>
         <p>מסננים ומגישים מועמדות בלחיצה.</p>
+        <!-- כפתור/לינק לפעולה מרכזית: מעבר לדף חיפוש משמרות -->
         <a href="ShiftSearch.html" class="btn-action green">חיפוש משמרות</a>
       </article>
+
     </div>
   </section>
 
+  <!-- ===== SECTION: איך זה עובד? (תהליך בשלבים) ===== -->
   <section>
     <h2>איך זה עובד?</h2>
+
+    <!-- קונטיינר של שלבי התהליך -->
     <div class="steps-container">
+
+      <!-- שלב 1 -->
       <div class="step-box">
         <h3>1. פרסום</h3>
         <p>הגן מפרסם משמרת בטופס מסודר.</p>
       </div>
+
+      <!-- שלב 2 -->
       <div class="step-box">
         <h3>2. התאמה</h3>
-         <P>על פי קריטריונים רלוונטים.</P>
+        <!-- שים לב: תגית P באות גדולה (לא משנה קוד, רק מציין כהערה כללית) -->
+        <P>על פי קריטריונים רלוונטים.</P>
       </div>
+
+      <!-- שלב 3 -->
       <div class="step-box">
         <h3>3. ניהול</h3>
         <p>באזור אישי אפשר לראות פרסומים ולנהל סטטוסים.</p>
       </div>
+
     </div>
   </section>
 
+  <!-- ===== SECTION: דוגמה למשמרות פתוחות + פילטר דמה ===== -->
   <section class="open-shifts">
     <h2>דוגמה למשמרות פתוחות</h2>
 
+    <!-- פילטר דמה להצגת UI בלבד (לא שולח/לא מבצע חיפוש אמיתי) -->
     <form class="filter-bar">
+
+      <!-- בחירת עיר -->
       <label>עיר:</label>
       <select>
         <option>תל אביב</option>
@@ -78,25 +126,36 @@
         <option>גבעתיים</option>
       </select>
 
+      <!-- בחירת תאריך -->
       <label>תאריך:</label>
       <input type="date">
 
+      <!-- סליידר טווח שכר (דוגמה) -->
       <label>טווח שכר (₪):</label>
       <input type="range" min="30" max="100">
 
+      <!-- כפתור דמה: type="button" כדי לא לשלוח את הטופס
+           title="דוגמה בלבד" כדי להבהיר למשתמש -->
       <input type="button" value="חפש" class="btn-primary" style="cursor:pointer;" title="דוגמה בלבד">
+
     </form>
 
+    <!-- גריד של כרטיסי משמרות (דוגמאות סטטיות) -->
     <div class="shifts-grid">
+
+      <!-- כרטיס משמרת 1 -->
       <div class="shift-card">
+        <!-- תגית דחוף -->
         <span class="badge">דחוף</span>
         <h3>גן פרטי בת״א</h3>
         <p>📍 תל אביב</p>
         <p>📅 מחר, 07:30 - 16:00</p>
         <p>💰 50₪ / שעה</p>
+        <!-- מעבר לדף חיפוש משמרות -->
         <a href="ShiftSearch.html" class="btn-action green">לכל המשמרות</a>
       </div>
 
+      <!-- כרטיס משמרת 2 -->
       <div class="shift-card">
         <h3>גן השלום</h3>
         <p>📍 רמת גן</p>
@@ -104,24 +163,30 @@
         <p>💰 45₪ / שעה</p>
         <a href="ShiftSearch.html" class="btn-action green">לכל המשמרות</a>
       </div>
+
     </div>
   </section>
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer>
   <p>
+    <!-- לינקים שלא מומשו: class="not-implemented" + title למידע למשתמש -->
     <a href="#" class="not-implemented" title="טרם מומש">תנאי שימוש</a> |
     <a href="#" class="not-implemented" title="טרם מומש">מדיניות פרטיות</a> |
     <a href="#" class="not-implemented" title="טרם מומש">צור קשר</a>
   </p>
 </footer>
 
+<!-- ================= INLINE JS ================= -->
 <script>
   // הודעה לתפריטים/לינקים שלא מומשו (לפי ההנחיות)
+  // מאזין לכל קליק במסמך (Event Delegation)
   document.addEventListener("click", function(e){
+    // אם האלמנט שנלחץ כולל את המחלקה not-implemented
     if (e.target.classList.contains("not-implemented")) {
-      e.preventDefault();
-      alert("טרם מומש");
+      e.preventDefault();        // מונע ניווט ל-#
+      alert("טרם מומש");         // מציג הודעה למשתמש
     }
   });
 </script>
