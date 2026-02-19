@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var dateInput = document.getElementById("shift_date");
   if (dateInput) dateInput.min = todayStr();
 
-  // ✅ הודעת הצלחה אחרי redirect מה-PHP
+ 
   var params = new URLSearchParams(window.location.search);
   if (params.get("success") === "1") {
     showSuccess("המשמרת פורסמה בהצלחה ✅");
@@ -69,6 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (city === "") errs.push("חובה לבחור עיר");
     if (address === "") errs.push("חובה למלא כתובת");
     if (shift_type === "") errs.push("חובה לבחור סוג מסגרת");
+    if(phone === "") errs.push("חובה למלא מספר טלפון");
+    if(start==="") errs.push("חובה להכניס שעת התחלה");
+    if(end==="") errs.push("חובה להכניס שעת סיום");
+    if(wage==="") errs.push("חובה להכניס שכר לשעה");
+    if(kids=="") errs.push("חובה להכניס מספר ילדים");
     if (!/^05\d-?\d{7}$/.test(phone)) errs.push("טלפון לא תקין. לדוגמה: 0501234567");
 
     // ✅ מאפשר משמרת לילה (חוצה חצות), רק מונע זהות
