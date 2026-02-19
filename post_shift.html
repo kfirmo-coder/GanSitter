@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GanSitter - פרסום צורך למשמרת</title>
+  <link rel="stylesheet" href="style_post.css" />
+</head>
+<body>
+
+<header>
+  <nav>
+    <h1>GanSitter</h1>
+    <div class="menu-links">
+      <a href="index.html">דף הבית</a>
+      <a href="ShiftSearch.html">חיפוש משמרות</a>
+      <a href="dashboard.html">אזור אישי</a>
+    </div>
+    <a href="post_shift.html" class="btn-primary">פרסם צורך</a>
+  </nav>
+</header>
+
+<main class="page">
+  <section class="card">
+    <h2>פרסום צורך למשמרת</h2>
+    <p class="sub">ממלאים ושולחים.</p>
+
+    <div id="serverMsg" class="msg" style="display:none;"></div>
+    <div id="successMsg" class="msg success" style="display:none;">
+     המשמרת פורסמה בהצלחה ✅
+     </div>
+
+    <form id="postForm" method="post" action="https://roiwi.mtacloud.co.il/post_shift.php" novalidate>
+      <div class="grid">
+
+        <div class="field">
+          <label for="k_name">שם הגן</label>
+          <input type="text" id="k_name" name="k_name" required />
+        </div>
+         <div class="field">
+          <label for="address">כתובת</label>
+          <input type="text" id="address" name="address" placeholder="רחוב ומספר" required>
+       </div>
+        <div class="field">
+         <label for="shift_type">סוג מסגרת</label>
+         <select id="shift_type" name="shift_type" required>
+         <option value="גן">גן</option>
+         <option value="צהרון">צהרון</option>
+         <option value="קייטנה">קייטנה</option>
+         <option value="משפחתון">משפחתון</option>
+         </select>
+        </div>
+        <div class="field">
+         <label for="ages">גילאים</label>
+         <input type="text" id="ages" name="ages" placeholder="לדוגמה: 3-5" >
+        </div>
+   
+        <div class="field">
+          <label for="city">עיר</label>
+          <select id="city" name="city" required>
+            <option value="">בחר</option>
+            <option value="תל אביב">תל אביב</option>
+            <option value="רמת גן">רמת גן</option>
+            <option value="גבעתיים">גבעתיים</option>
+            <option value="פתח תקווה">פתח תקווה</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="shift_date">תאריך</label>
+          <input type="date" id="shift_date" name="shift_date" required />
+        </div>
+
+        <div class="field">
+          <label for="start_time">שעת התחלה</label>
+          <input type="time" id="start_time" name="start_time" required />
+        </div>
+
+        <div class="field">
+          <label for="end_time">שעת סיום</label>
+          <input type="time" id="end_time" name="end_time" required />
+        </div>
+
+        <div class="field">
+          <label for="wage">שכר לשעה (₪)</label>
+          <input type="number" id="wage" name="wage" min="30" max="100" required />
+        </div>
+
+        <div class="field">
+          <label for="kids">מספר ילדים</label>
+          <input type="number" id="kids" name="kids" min="1" max="60" required />
+        </div>
+
+        <div class="field">
+          <label for="phone">טלפון איש קשר</label>
+          <input type="tel" id="phone" name="phone" placeholder="0501234567" required />
+        </div>
+
+        <div class="field full">
+          <label for="notes">הערות / דרישות</label>
+          <textarea id="notes" name="notes" rows="4"></textarea>
+        </div>
+
+        <div class="field full">
+          <div class="urgent-row" id="urgentRow">
+            <div class="urgent-text">
+              <div class="urgent-title">דחוף</div>
+              <div class="urgent-sub">מסמן את המשמרת כעדיפות גבוהה</div>
+            </div>
+
+            <label class="switch" aria-label="דחוף">
+              <input type="checkbox" id="urgent" name="urgent" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-primary" id="submitBtn">שמור ופרסם</button>
+        <a href="index.html" class="btn-secondary">ביטול</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>GanSitter</p>
+</footer>
+
+<script src="post_shift.js"></script>
+</body>
+</html>

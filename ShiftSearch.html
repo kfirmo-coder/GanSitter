@@ -1,0 +1,116 @@
+<!-- =========  חלק: SCREEN 2  =========
+     שם קובץ: shifts.html
+     תפקיד: חיפוש/פילטר/מיון + JS+jQuery + מעבר למסך פרטים
+====================================== -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GanSitter - חיפוש משמרות</title>
+  <link rel="stylesheet" href="ShiftSearch CSS.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <h1>GanSitter</h1>
+
+    <div class="menu-links">
+      <a href="index.html">דף הבית</a>
+      <a href="ShiftSearch.html" class="active">חיפוש משמרות</a>
+<a href="dashboard.html">אזור אישי</a>
+    </div>
+
+    <a href="post_shift.html" class="btn-primary">פרסם צורך</a>
+  </nav>
+</header>
+
+<main class="page">
+  <section class="top">
+    <h2>חיפוש משמרות</h2>
+    <p class="sub">מסננים, ממיינים, ובוחרים משמרת בקליק.</p>
+  </section>
+
+  <section class="filters">
+    <form id="filterForm" class="filter-bar">
+      <div class="row">
+        <label for="city">עיר</label>
+        <select id="city">
+          <option value="">הכל</option>
+          <option value="תל אביב">תל אביב</option>
+          <option value="רמת גן">רמת גן</option>
+          <option value="גבעתיים">גבעתיים</option>
+          <option value="פתח תקווה">פתח תקווה</option>
+        </select>
+
+        <label for="date">תאריך</label>
+        <input type="date" id="date">
+
+        <label for="type">סוג מסגרת</label>
+        <select id="type">
+          <option value="">הכל</option>
+          <option value="גן">גן</option>
+          <option value="משפחתון">משפחתון</option>
+        </select>
+
+        <label for="hours">שעות</label>
+        <select id="hours">
+          <option value="">הכל</option>
+          <option value="בוקר">בוקר</option>
+          <option value="צהריים">צהריים</option>
+          <option value="מלא">מלא</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="minWage">שכר מינימלי (₪/שעה)</label>
+        <input type="range" id="minWage" min="30" max="100" value="30">
+        <span class="chip" id="minWageText">מ-30₪</span>
+
+        <label class="check">
+          <input type="checkbox" id="urgentOnly">
+          רק דחוף
+        </label>
+
+        <label for="sort">מיון</label>
+        <select id="sort">
+          <option value="near">קרוב לעיר שנבחרה</option>
+          <option value="high">שכר הכי גבוה</option>
+          <option value="urgent">דחוף קודם</option>
+        </select>
+
+        <button type="button" id="clearBtn" class="btn-secondary">נקה</button>
+      </div>
+    </form>
+
+    <div class="status">
+      <strong id="resultCount">נמצאו 0 משמרות</strong>
+      <span id="statusNote"></span>
+    </div>
+  </section>
+
+  <section class="results">
+    <div id="resultsGrid" class="shifts-grid"></div>
+  </section>
+</main>
+
+<footer>
+  <p>
+    <a href="#" class="not-implemented" title="טרם מומש">תנאי שימוש</a> |
+    <a href="#" class="not-implemented" title="טרם מומש">מדיניות פרטיות</a> |
+    <a href="#" class="not-implemented" title="טרם מומש">צור קשר</a>
+  </p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="shifts_data.js"></script>
+<script src="ShiftSearch.js"></script>
+<script>
+  $(document).on("click", ".not-implemented", function(e){
+    e.preventDefault();
+    alert("טרם מומש");
+  });
+</script>
+</body>
+</html>
