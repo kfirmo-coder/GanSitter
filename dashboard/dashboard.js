@@ -12,7 +12,7 @@ $(document).ready(function () {
       var s = JSON.parse(raw);
       // שומר בדפדפן כדי שמסך הפרטים יקרא את המשמרת
       localStorage.setItem("selectedShift", JSON.stringify(s));
-      window.location.href = "ShiftDetails.html?id=" + encodeURIComponent(s.id);
+      window.location.href = "shift-details/ShiftDetails.html?id=" + encodeURIComponent(s.id);
     } catch (e) {
       alert("שגיאה בקריאת הנתונים");
     }
@@ -100,3 +100,4 @@ $(document).ready(function () {
   loadPostsFromStaticData();
   loadMyApps();
 });
+
